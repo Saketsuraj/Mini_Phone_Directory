@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>UpGrad Mini Phone Directory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <b>PHONE DIRECTORY</b>
+            </a>
+        </div>
+    </nav>
+    <br>
+    <div class="container col-md-11">
+        <a href="add.html">
+            <button class="btn btn-success">ADD</button>
+        </a>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="contactList">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        //Function to delete contact
+        function deleteContact(id) {
+            document.getElementById("list_" + id).outerHTML = "";
+
+            for (var i = getContactList.length - 1; i >= 0; --i) {
+                if (getContactList[i].id == id) {
+                    getContactList.splice(i, 1);
+                }
+            }
+
+            //Updating storage
+            localStorage.setItem('contactList', JSON.stringify(getContactList));
+        }
+
+        if (!localStorage.getItem('contactList')) {
+            alert('Phone directory is empty. Please add contacts.');
+        } else {
+            var getContactList = [],
+                listData = "";
+            getContactList = JSON.parse(localStorage.getItem('contactList'));
+            for (var i = 0; i < getContactList.length; i++) {
+                listData += '<tr id="list_' + getContactList[i].id + '"><td>' + getContactList[i].name + '</td><td>' +
+                    getContactList[i].phone + '</td><td><button onclick="deleteContact(' + this.getContactList[i].id +
+                    ')" id="l_' + getContactList[i].id + '" class="btn btn-danger">Delete</button></td></tr>';
+            }
+            document.getElementById('contactList').innerHTML = listData;
+        }
+    </script>
+</body>
+
+</html>
