@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Mini Phone Directory</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
 </head>
 
 <body>
@@ -66,7 +68,7 @@
             return Math.floor((Math.random() * 100000) + 1);
         }
 
-       function saveContact() {
+        function saveContact() {
             if (name === "" || phone === "") {
                 alert('Please fill the details');
             } else {
@@ -84,6 +86,17 @@
             }//Else ends
         }//Function ends
 
+    </script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $cf = $('#contact');
+            $cf.blur(function (e) {
+                phone = phone.replace(/[^0-9]/g, '');
+                if (phone.length != 10) {
+                    alert('Phone number must be 10 digits.');
+                }
+            });
+        });
     </script>
 
 </body>
